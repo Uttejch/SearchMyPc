@@ -5,7 +5,7 @@ x=[]
 z=[]
 q='1'
 k=1
-f=input("which directory you want to search for:\n1)c\t2)h\n3)i\t4)j\n")
+f=input("which Drive you want to search for:")
 t=input("Enter the file type(0 if none):")
 root_directory=f.upper() + ":/"
 search=input("what you want to search:")
@@ -13,8 +13,12 @@ if os.stat("SearchComputer.txt").st_size != 0:
     with open("SearchComputer.txt","r") as f:
         for line in f:
             (key,value,t1)=line.split("\t")
-            if(search.lower() in key.lower() and key.endswith(t)):
-                x.append(value)
+            if t!='0':
+                if(search.lower() in key.lower() and key.endswith(t)):
+                    x.append(value)
+            else:
+                if(search.lower() in key.lower()):
+                    x.append(value)
     print ( )
     if(len(x)==0):
         print("No file found in cache.Press 1 for deep search:")
@@ -44,15 +48,6 @@ if(q=='1'):
                     z.append(file)
                     k=k+1
     print ( )
-    if(len(x)==0):
-        print("No such file found")
-    else:
-        for i in range(0,len(x)):
-            u=i+1
-            print (str(u)+')'+x[i])
-        y=int(input("select which file to open:"))
-        y=y-1
-        os.startfile(x[y])
     if(len(x)!=0):
         with open("SearchComputer.txt","r+") as f:
             for i in range(0,len(x)):
@@ -69,6 +64,16 @@ if(q=='1'):
                 if(t2==1):
                     f.write(z[i] + "\t" + x[i] + "\t" + "\n")
                 #f.seek(0,0)
+    if(len(x)==0):
+        print("No such file found")
+    else:
+        for i in range(0,len(x)):
+            u=i+1
+            print (str(u)+')'+x[i])
+        y=int(input("select which file to open:"))
+        y=y-1
+        os.startfile(x[y])
+
 
     p=input("Press enter to quit")
 else:
